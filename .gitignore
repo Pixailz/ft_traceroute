@@ -1,4 +1,4 @@
 # COMPILED THING
 obj/*
-prog
-prog_bonus
+ft_traceroute
+ft_traceroute_bonus

@@ -81,7 +81,7 @@ endif
 ### HELPER
 
 helper:
-> ./rsc/helper/helper -S SupaBlank
+> ./rsc/helper/helper -S ft_traceroute
 
 ### RUN
 run:					re

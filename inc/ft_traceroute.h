@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   template_bonus.h                                   :+:      :+:    :+:   */
+/*   ft_traceroute.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2023/11/02 05:58:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/04/27 01:22:33 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEMPLATE_BONUS_H
-# define TEMPLATE_BONUS_H
+#ifndef FT_TRACEROUTE_H
+# define FT_TRACEROUTE_H
 
 # include "libft.h"
 
@@ -19,33 +19,27 @@
 /* FILES */
 /* ##### */
 
+// data/error.c
+void		print_error_parsing(t_bin retv);
+t_bin		print_error(t_bin retv);
+
+// data/parsing/cmd/help.c
+void		help_header(void);
+void		help_part_1(void);
+void		help_footer(void);
+t_bin		help(void);
+
+// data/parsing/cmd/usage.c
+t_bin		usage(void);
+
+// data/parsing/parse.c
+t_bin		post_parse(void);
+t_bin		parse_opts(int ac, char **av);
+
 // main.c
-int		main(void);
-
-// utils/utils.1.c
-int		ft_utils_5(void);
-
-// utils/utils.1/utils.1.c
-int		ft_utils_1(void);
-
-// utils/utils.1/utils.2.c
-int		ft_utils_2(void);
-
-// utils/utils.1/utils.3.c
-int		ft_utils_3(void);
-
-// utils/utils.1/utils.4.c
-int		ft_utils_4(void);
-
-// utils/utils.2.c
-int		ft_utils_6(void);
-
-// utils/utils.3.c
-int		ft_utils_7(void);
-
-// utils/utils.4.c
-int		ft_utils_8(void);
+t_bin		run(int ac, char **av);
+int			main(int ac, char **av);
 
 /* ########################################################################## */
 
-#endif // H_TEMPLATE_BONUS_H
+#endif //FT_TRACEROUTE_H

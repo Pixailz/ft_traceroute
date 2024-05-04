@@ -1,8 +1,8 @@
 # BASE
-TARGET				:= prog
-TARGET_BONUS		:= prog_bonus
+TARGET				:= ft_traceroute
+TARGET_BONUS		:= ft_traceroute_bonus
 CC					:= gcc
-VERSION				:= 1.2.3-rc4
+VERSION				:= 0.0.0
 AUTHOR				:= Pixailz
 LDFLAGS				:=
 CFLAGS				:= -Wall -Wextra $(LDFLAGS)

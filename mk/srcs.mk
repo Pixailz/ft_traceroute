@@ -1,5 +1,6 @@
 # SRCS
-SRC_C_MANDATORY := data/parsing/cmd/help.c \
+SRC_C_MANDATORY := data/error.c \
+				   data/parsing/cmd/help.c \
 				   data/parsing/cmd/usage.c \
 				   data/parsing/parse.c \
 				   main.c

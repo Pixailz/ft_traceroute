@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   usage.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 06:02:30 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/05 00:18:45 by brda-sil         ###   ########.fr       */
+/*   Created: 2024/04/27 01:04:54 by brda-sil          #+#    #+#             */
+/*   Updated: 2024/05/05 00:18:34 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-t_bin	usage(void)
+void	print_error_parsing(t_bin retv)
 {
-	ft_dprintf(1, "\
-Usage: %s [--verbose] [--help] [--usage] [--version] ARGS ...\n", PROG_NAME);
-	return (0);
+	if (retv == 2)
+	{
+		ft_perr("%s: Only one argument needed\n", PROG_NAME);
+	}
+}
+
+t_bin	print_error(t_bin retv)
+{
+	if (!retv)
+		return retv;
+	if (retv <= 2)
+		print_error_parsing(retv);
+	ft_try_help_usage();
+	return retv;
 }

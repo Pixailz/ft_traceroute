@@ -6,20 +6,14 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 03:26:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/04/01 04:42:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/04/27 01:39:25 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "template.h"
+#include "ft_traceroute.h"
 
-void	test_define()
-{
-	ft_printf("prog_name  %s\n", PROG_NAME);
-	ft_printf("pwd        %s\n", PWD);
-	ft_printf("debug      %d\n", DEBUG);
-	ft_printf("debug_fd   %d\n", DEBUG_FD);
-	ft_printf("version    %s\n", VERSION);
-}
+extern char		*TARGET_STR;
+extern t_int4	 TARGET_IP;
 
 t_bin	run(int ac, char **av)
 {
@@ -37,8 +31,11 @@ int	main(int ac, char **av)
 {
 	char	ret = 0;
 
-	// test_define();
 	ret = run(ac, av);
+	ft_printf("TARGET_STR > %s\n", TARGET_STR);
+	ft_printf("TARGET_IP  > ");
+	ft_putip_fd(TARGET_IP, 1);
+	ft_putchar_fd('\n', 1);
 	ft_free_opts();
 	return (ret);
 }
