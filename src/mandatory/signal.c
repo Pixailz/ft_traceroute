@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 03:26:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/11 21:18:13 by brda-sil         ###   ########.fr       */
+/*   Created: 2024/05/11 21:17:44 by brda-sil          #+#    #+#             */
+/*   Updated: 2024/05/11 21:19:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-t_bin	run(int ac, char **av)
+t_bin	init_signal(void)
 {
-	int	ret;
-
-	ret = parse_opts(ac, av);
-	if (ret == BIT_01)
-		return (ft_opt_exec_cmd());
-	else if (ret != 0)
-		return (WRONG_ARG);
-	if (init_signal())
-		return (FAILED_INIT_SIGNAL);
-	if (init_socket())
-		return (FAILED_INIT_SOCKET);
-	exec();
-	return (ret);
-}
-
-int	main(int ac, char **av)
-{
-	char	ret = 0;
-
-	ret = run(ac, av);
-	ft_free_opts();
-	return (ret);
+	if (signal(SIGALRM, SIG_IGN) == SIG_ERR)
+	{
+		ft_perr("signal: failed to ingore SIGALRM\n");
+		return (BIT_01);
+	}
+	return (BIT_00);
 }

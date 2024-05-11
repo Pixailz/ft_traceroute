@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 01:01:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/05 00:18:40 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:54:38 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ static t_bool	get_ip(char *target)
 t_bin	post_parse(void)
 {
 	t_opts	*opts;
-	t_size	 opt_len;
 
 	opts = ft_get_opts(0);
-	opt_len = get_opt_len(opts);
-	if (opt_len != 1)
-		return (2);
+	if (get_opt_len(opts) != 1)
+	{
+		ft_perr("Ony one arg is needed\n");
+		return (WRONG_ARG);
+	}
 	TARGET_STR = get_target(opts);
 	TARGET_IP = get_ip(TARGET_STR);
 	return (BIT_00);

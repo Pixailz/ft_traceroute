@@ -1,9 +1,15 @@
 # SRCS
-SRC_C_MANDATORY := data/error.c \
-				   data/parsing/cmd/help.c \
-				   data/parsing/cmd/usage.c \
-				   data/parsing/parse.c \
-				   main.c
+SRC_C_MANDATORY := error.c \
+				   execution.c \
+				   main.c \
+				   parsing/cmd/help.c \
+				   parsing/cmd/usage.c \
+				   parsing/parse.c \
+				   print_packet.c \
+				   recv_pong.c \
+				   send_ping.c \
+				   signal.c \
+				   socket.c
 
 SRC_C_BONUS := main.c \
 			   utils/utils.1.c \

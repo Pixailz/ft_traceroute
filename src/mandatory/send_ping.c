@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   usage.c                                            :+:      :+:    :+:   */
+/*   send_ping.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 06:02:30 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/05 00:18:45 by brda-sil         ###   ########.fr       */
+/*   Created: 2023/11/16 19:34:50 by brda-sil          #+#    #+#             */
+/*   Updated: 2024/05/11 23:01:56 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-t_bin	usage(void)
+extern int		SOCKET;
+extern t_int4	TARGET_IP;
+
+t_bool	send_ping(t_packet pack)
 {
-	ft_dprintf(1, "\
-Usage: %s [--verbose] [--help] [--usage] [--version] ARGS ...\n", PROG_NAME);
-	return (0);
+	long			ret;
+	struct sockaddr	dst;
+
+	dst = ft_ltoaddr(TARGET_IP);
+	ret = sendto(SOCKET, pack.data, PACK_LEN_IP + PACK_LEN_UDP, 0, &dst, \
+																sizeof(dst));
+	if (ret == -1)
+		ft_perr("sendto");
+	alarm(TIMEOUT);
+	return (FALSE);
 }
