@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/11 23:02:18 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:25:47 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef enum e_err_traceoute {
 	FAILED_INIT_SOCKET	= 4,
 }	t_err_traceroute;
 
-# define PACK_TOT_LEN_UDP	PACK_LEN_IP + PACK_LEN_UDP + ICMP_HDR_PADDING
-# define PACK_TOT_LEN_ICMP	PACK_LEN_IP + PACK_LEN_ICMP_ECHO + ICMP_HDR_PADDING
+# define PACK_TOT_LEN_UDP		PACK_LEN_IP + PACK_LEN_UDP + ICMP_HDR_PADDING
+# define PACK_TOT_LEN_ICMP		PACK_LEN_IP + PACK_LEN_ICMP_ECHO + ICMP_HDR_PADDING
+# define PACK_TOT_LEN_ICMP_TIME	PACK_TOT_LEN_ICMP + PACK_TOT_LEN_ICMP
 
 # define TIMEOUT		1
 

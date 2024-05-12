@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:53:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/11 21:13:22 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:28:11 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,51 @@ extern int SOCKET;
 
 static t_bool	recv_echo_reply(t_packet *pong_pkt)
 {
-	struct iovec	io;
-	struct msghdr	msg;
 	long			ret;
 
-	ft_memset(&io, 0, sizeof(io));
-	ft_memset(&msg, 0, sizeof(msg));
-	io.iov_base = pong_pkt->data;
-	io.iov_len = sizeof(t_icmphdr_time_exceed);
-	msg.msg_iov = &io;
-	msg.msg_iovlen = 1;
-	ret = recvmsg(SOCKET, &msg, 0);
+	ret = recvfrom(
+		SOCKET,					// SOCKET
+		pong_pkt->data,			// BUFFER
+		PACK_TOT_LEN_ICMP_TIME,	// LEN
+		0,						// FLAG
+		FT_NULL,				// SOCK ADDR FROM
+		0						// SOCK ADDR FROM LEN
+	);
 	return (ret == -1);
 }
 
 static t_bool	check_reply(t_packet *pkt)
 {
-	// t_icmphdr_echo	*icmphdr_echo;
+	t_iphdr					*pack_ip;
+	t_icmphdr_time_exceed	*pack_icmp;
 
-	// icmphdr_echo = ft_pkt_get_icmp_echo(pkt);
-	// if (icmphdr_echo->type != ICMP_ECHOREPLY)
-	// {
-	// 	if ((int)icmphdr_echo->type == ICMP_ECHO)
-	// 		return (FALSE);
-	// 	print_icmp_error(pkt->data);
-	// 	conf->stats.nb_err++;
-	// }
-	// else
-	// {
-	// 	conf->stats.nb_recv++;
-	// 	print_pong_stats(pkt->data, icmphdr_echo);
-	// }
-	return (TRUE);
+	pack_ip = ft_pkt_get_ip(pkt);
+	pack_icmp = ft_pkt_get_icmp_time_exceed(pkt);
+
+	if (pack_icmp->type == ICMP_TIME_EXCEEDED)
+	{
+		ft_putip_fd(ft_htonl(pack_ip->src_addr), 1);
+		ft_printf(" Time Exceed\n");
+		return (TRUE);
+	}
+	else if (	pack_icmp->type == ICMP_DEST_UNREACH &&
+				pack_icmp->code == ICMP_PORT_UNREACH)
+	{
+		ft_putip_fd(ft_htonl(pack_ip->src_addr), 1);
+		ft_printf(" Dest Reached\n");
+		return (TRUE);
+	}
+	ft_printf("An other packet\n");
+	return (FALSE);
 }
 
 void	recv_pong()
 {
 	t_packet		pong_pkt;
 
-	pong_pkt = ft_pkt_get();
 	while (TRUE)
 	{
-		ft_bzero(pong_pkt.data, sizeof(pong_pkt.data));
+		pong_pkt = ft_pkt_get();
 		if (recv_echo_reply(&pong_pkt))
 		{
 			ft_printf("TIMEOUT\n");
