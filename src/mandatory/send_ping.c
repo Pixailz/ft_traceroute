@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 19:34:50 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/11 23:01:56 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/23 23:32:05 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 extern int		SOCKET;
 extern t_int4	TARGET_IP;
+
+t_ts			LAST_SENDED;
 
 t_bool	send_ping(t_packet pack)
 {
@@ -25,6 +27,6 @@ t_bool	send_ping(t_packet pack)
 																sizeof(dst));
 	if (ret == -1)
 		ft_perr("sendto");
-	alarm(TIMEOUT);
+	LAST_SENDED = ft_get_ts();
 	return (FALSE);
 }

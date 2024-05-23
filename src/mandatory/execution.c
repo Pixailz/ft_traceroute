@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:27:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/12 17:49:24 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/24 00:15:17 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 extern char		*TARGET_STR;
 extern t_int4	TARGET_IP;
-int				TRACEROUTE_LVL = 0;
+extern t_prob	**PROBS;
 
-void	inc_traceroute_lvl(t_packet *pack)
+t_uint8			CURRENT_TTL = 0;
+
+void	inc_ttl(t_packet *pack)
 {
-	t_iphdr		*pack_ip;
-	t_udphdr	*pack_udp;
-	t_uint16	port;
+	t_iphdr	*pack_ip;
 
 	pack_ip = ft_pkt_get_ip(pack);
-	port = ft_htons(TRACEROUTE_BASE_PORT + TRACEROUTE_LVL);
-	TRACEROUTE_LVL++;
-	pack_ip->ttl = TRACEROUTE_LVL;
+	pack_ip->ttl = ++CURRENT_TTL;
+}
+
+void	set_port(t_packet *pack, int index)
+{
+	t_udphdr	*pack_udp;
+	t_uint32	port;
+
 	pack_udp = ft_pkt_get_udp(pack);
-	pack_udp->dst_port = port;
+	port = ft_htons(TRT_BASE_PORT + index);
 	pack_udp->src_port = port;
 }
 
@@ -42,7 +47,7 @@ static t_packet	get_udp_packet(void)
 	ft_pkt_fill_ip_default(pack_ip);
 	pack_ip->total_len = PACK_TOT_LEN_UDP;
 	pack_ip->dst_addr = TARGET_IP;
-	pack_ip->ttl = TRACEROUTE_LVL;
+	pack_ip->ttl = CURRENT_TTL;
 	pack_ip->identification = ft_htons(420);
 	pack_ip->fragment_off = ft_htons(
 		ft_pkt_fragment_offset(IPHDR_F_DONT_FRAG, 0)
@@ -58,15 +63,26 @@ static t_packet	get_udp_packet(void)
 void	exec(void)
 {
 	t_packet	pack;
-	int			i;
+	t_uint32	i;
+	t_uint32	retv;
 
 	pack = get_udp_packet();
 	i = 0;
-	while (i < 20)
+	print_stat_header();
+	while (i < TRT_MAX_HOP * TRT_NB_PROB)
 	{
-		inc_traceroute_lvl(&pack);
+		set_port(&pack, i);
+		if (i % TRT_NB_PROB == 0)
+			inc_ttl(&pack);
 		send_ping(pack);
-		recv_pong();
+		retv = recv_pong(i);
+		if (i % TRT_NB_PROB == 2)
+		{
+			print_stat();
+			if (retv == 2)
+				break ;
+		}
 		i++;
 	}
+	print_stat_footer();
 }

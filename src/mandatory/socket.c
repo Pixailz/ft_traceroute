@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:47:31 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/12 18:14:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:32:05 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	ft_create_sock_echo(void)
 	SOCKET = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if (SOCKET == -1)
 		return (2);
-	tv.tv_usec = 0;
-	tv.tv_sec = 2;
+
+	tv.tv_usec = TRT_TIMEOUT % A_SEC;
+	tv.tv_sec = TRT_TIMEOUT / A_SEC;
+
 	if (setsockopt(SOCKET, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1)
 		return (3);
 	if (setsockopt(SOCKET, IPPROTO_IP, IP_HDRINCL, (int [1]){1}, \

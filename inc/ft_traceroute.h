@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/12 18:25:47 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/24 00:50:02 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,42 @@
 	SIG_ERR
 	SIGALRM
  */
+# include <sys/time.h>
+/*
+ gettimeofday()
+ */
 
 typedef enum e_err_traceoute {
 	WRONG_ARG			= 2,
 	FAILED_INIT_SIGNAL	= 3,
 	FAILED_INIT_SOCKET	= 4,
+	FAILED_INIT_PROBS	= 5,
 }	t_err_traceroute;
 
 # define PACK_TOT_LEN_UDP		PACK_LEN_IP + PACK_LEN_UDP + ICMP_HDR_PADDING
 # define PACK_TOT_LEN_ICMP		PACK_LEN_IP + PACK_LEN_ICMP_ECHO + ICMP_HDR_PADDING
 # define PACK_TOT_LEN_ICMP_TIME	PACK_TOT_LEN_ICMP + PACK_TOT_LEN_ICMP
 
-# define TIMEOUT		1
+# define A_SEC			1000000
 
-# define TRACEROUTE_BASE_PORT 33434
+// Traceroute base port for dummy udp packet
+# define TRT_BASE_PORT	33434
+
+// Number to packet to send at the same host
+# define TRT_NB_PROB	3
+
+// Max hop (TTL)
+# define TRT_MAX_HOP	30
+
+// Set timemout for a request, in µs
+# define TRT_TIMEOUT	500000
+
+typedef long	t_ts;
+
+typedef struct	s_prob {
+	t_uint32	ip;
+	t_ts		ts;
+}	t_prob;
 
 /* ########################################################################## */
 /* FILES */
@@ -46,8 +68,12 @@ void		print_error_parsing(t_bin retv);
 t_bin		print_error(t_bin retv);
 
 // execution.c
-void		inc_traceroute_lvl(t_packet *pack);
+void		inc_ttl(t_packet *pack);
+void		set_port(t_packet *pack, int index);
 void		exec(void);
+
+// ft_get_ts.c
+t_ts		ft_get_ts(void);
 
 // main.c
 t_bin		run(int ac, char **av);
@@ -69,8 +95,14 @@ t_bin		parse_opts(int ac, char **av);
 // print_packet.c
 void		packet_print(void *pkt);
 
+// probs.c
+int			init_probs(void);
+void		free_probs(void);
+
 // recv_pong.c
-void		recv_pong();
+t_uint16	get_ori_port(t_icmphdr_time_exceed pkt);
+t_int32		get_index(t_icmphdr_time_exceed pkt);
+t_uint32	recv_pong(int index);
 
 // send_ping.c
 t_bool		send_ping(t_packet pack);
@@ -81,6 +113,12 @@ t_bin		init_signal(void);
 // socket.c
 int			ft_create_sock_echo(void);
 int			init_socket(void);
+
+// stat.c
+void		print_padded_ip(t_int4 ip, char *COLOR);
+void		print_stat_header(void);
+void		print_stat_footer(void);
+void		print_stat(void);
 
 /* ########################################################################## */
 
