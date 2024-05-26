@@ -118,6 +118,9 @@ int			init_socket(void);
 void		print_padded_ip(t_int4 ip, char *COLOR);
 void		print_stat_header(void);
 void		print_stat_footer(void);
+t_bool		is_same_ip(t_uint32 base_id);
+void		print_stat_ip_same(t_uint32 base_id, char *COLOR);
+void		print_stat_ip_differ(t_uint32 base_id, char *COLOR);
 void		print_stat(void);
 
 /* ########################################################################## */
