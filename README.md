@@ -1,11 +1,5 @@
 # ft_traceroute
 
-1. Internet Protocol
-   [RFC791](https://datatracker.ietf.org/doc/html/rfc791)
-1. Internet Control Message Protocol
-   [RFC792](https://datatracker.ietf.org/doc/html/rfc792)
-1. User Datagram Protocol
-   [rfc768](https://datatracker.ietf.org/doc/html/rfc768)
 1. IBM Man about the traceroute cmmand
    [IBM_MAN_TRACEROUTE](https://www.ibm.com/docs/fr/power8?topic=commands-traceroute-command)
 
@@ -17,6 +11,12 @@ sudo tcpdump -n
 
 # filter on ip.identification == 0x01a4 (420)
 sudo tcpdump ip[4:2] == 0x01a4
+
+# filter on ip.dst_addr == 0x08080808
+sudo tcpdump ip[16:4] == 0x08080808
+
+# filter on ip.dst_addr == 0x08080808
+sudo tcpdump ip[16:4] == 0x08080808
 
 # filter on icmp
 sudo tcpdump icmp
@@ -33,8 +33,8 @@ sudo tcpdump -xni wlan0 ip[4:2] == 0x01a4 or icmp
 
 ## TODO
 
-1. Finish check
-	1. add check for dst ip i TimeExceed original packet
-1. Add time calculation
-1. Make 3 ping instead of one
-1. Add more flags
+1. display if ip differ on prob
+1. implement flags
+   1. n prob
+   1. max hop
+   1. start at hop

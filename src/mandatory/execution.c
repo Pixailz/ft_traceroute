@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:27:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/24 00:15:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/25 13:18:28 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	set_port(t_packet *pack, int index)
 	pack_udp = ft_pkt_get_udp(pack);
 	port = ft_htons(TRT_BASE_PORT + index);
 	pack_udp->src_port = port;
+	pack_udp->dst_port = port;
 }
 
 static t_packet	get_udp_packet(void)
