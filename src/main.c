@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 03:26:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/24 00:09:35 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/27 09:48:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_bin	run(int ac, char **av)
 	if (init_probs())
 		return (FAILED_INIT_PROBS);
 	exec();
+	ft_printf(CSI "2K" CSI "1A");
 	return (ret);
 }
 

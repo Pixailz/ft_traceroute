@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/24 00:50:02 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:19:50 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,20 @@ typedef enum e_err_traceoute {
 # define PACK_TOT_LEN_ICMP		PACK_LEN_IP + PACK_LEN_ICMP_ECHO + ICMP_HDR_PADDING
 # define PACK_TOT_LEN_ICMP_TIME	PACK_TOT_LEN_ICMP + PACK_TOT_LEN_ICMP
 
-# define A_SEC			1000000
+// Color for the traceroute table
+# define TRT_TABLE_COLOR	DIM GRE
 
 // Traceroute base port for dummy udp packet
-# define TRT_BASE_PORT	33434
+# define TRT_BASE_PORT		33434
 
 // Number to packet to send at the same host
-# define TRT_NB_PROB	3
+# define TRT_NB_PROB		3
 
 // Max hop (TTL)
-# define TRT_MAX_HOP	30
+# define TRT_MAX_HOP		30
 
 // Set timemout for a request, in µs
-# define TRT_TIMEOUT	500000
+# define TRT_TIMEOUT		500000
 
 typedef long	t_ts;
 
@@ -114,14 +115,15 @@ t_bin		init_signal(void);
 int			ft_create_sock_echo(void);
 int			init_socket(void);
 
-// stat.c
+// stat/main.c
+void		print_stat(void);
+
+// stat/utils.c
 void		print_padded_ip(t_int4 ip, char *COLOR);
 void		print_stat_header(void);
 void		print_stat_footer(void);
-t_bool		is_same_ip(t_uint32 base_id);
-void		print_stat_ip_same(t_uint32 base_id, char *COLOR);
-void		print_stat_ip_differ(t_uint32 base_id, char *COLOR);
-void		print_stat(void);
+void		print_stat_separator(void);
+void		print_stat_line(int	i, t_int4 ip, t_ts ts, t_bool same_ip);
 
 /* ########################################################################## */
 

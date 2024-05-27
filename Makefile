@@ -17,8 +17,6 @@ $(call PB_INIT)
 
 all:			setup $(TARGET)
 
-bonus:			all
-
 ### TARGETS
 $(TARGET):		$(OBJ_C)
 > $(call P_INF,Creating $(R)$(TARGET)$(RST))

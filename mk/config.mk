@@ -1,6 +1,5 @@
 # BASE
 TARGET				:= ft_traceroute
-TARGET_BONUS		:= ft_traceroute_bonus
 CC					:= gcc
 VERSION				:= 0.0.0
 AUTHOR				:= Pixailz
