@@ -33,8 +33,7 @@ sudo tcpdump -xni wlan0 ip[4:2] == 0x01a4 or icmp
 
 ## TODO
 
-1. display if ip differ on prob
-1. implement flags
-   1. n prob
-   1. max hop
-   1. start at hop
+1. fix flag at the end pop `unknown host`
+1. fix getting weird result in `ft_i4toh`
+1. fix header of stat when `-r` is not present
+1. sort ip on prob, so different ip could be spotted more easily

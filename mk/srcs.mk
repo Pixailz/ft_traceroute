@@ -12,10 +12,11 @@ SRC_C := error.c \
 		 send_ping.c \
 		 signal.c \
 		 socket.c \
+		 stat/init.c \
 		 stat/main.c \
 		 stat/utils.c
 
-SRC_C				:= $(addprefix $(SRC_DIR)/mandatory/,$(SRC_C_MANDATORY))
+SRC_C				:= $(addprefix $(SRC_DIR)/,$(SRC_C))
 
 CFLAGS				+= -DPROG_NAME='"$(TARGET)"'
 

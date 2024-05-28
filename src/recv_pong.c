@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:53:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/23 23:26:39 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:46:03 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 extern int		SOCKET;
 extern t_prob	**PROBS;
 extern t_ts		LAST_SENDED;
+extern t_bool	IS_INTERRUPTED;
 
 t_ts			LAST_RECV;
 
@@ -81,7 +82,7 @@ t_uint32	recv_pong(int index)
 	t_packet	pong_pkt;
 	t_uint32	retv;
 
-	while (TRUE)
+	while (!IS_INTERRUPTED)
 	{
 		pong_pkt = ft_pkt_get();
 		if (recv_echo_reply(&pong_pkt))

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/27 10:19:50 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/28 22:00:42 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,24 @@ typedef enum e_err_traceoute {
 	FAILED_INIT_SIGNAL	= 3,
 	FAILED_INIT_SOCKET	= 4,
 	FAILED_INIT_PROBS	= 5,
+	FAILED_INIT_TABLE	= 6,
 }	t_err_traceroute;
+
+typedef enum e_table_type {
+	HEADER,
+	HEADER_SEP,
+	MAIN_SEP,
+	FOOTER
+}	t_table_type;
 
 # define PACK_TOT_LEN_UDP		PACK_LEN_IP + PACK_LEN_UDP + ICMP_HDR_PADDING
 # define PACK_TOT_LEN_ICMP		PACK_LEN_IP + PACK_LEN_ICMP_ECHO + ICMP_HDR_PADDING
 # define PACK_TOT_LEN_ICMP_TIME	PACK_TOT_LEN_ICMP + PACK_TOT_LEN_ICMP
+
+// Some default value
+
+// Traceroute default ip IDENTIFICATION
+# define TRT_IP_IDENT		420
 
 // Color for the traceroute table
 # define TRT_TABLE_COLOR	DIM GRE
@@ -52,6 +65,7 @@ typedef enum e_err_traceoute {
 
 // Set timemout for a request, in µs
 # define TRT_TIMEOUT		500000
+// # define TRT_TIMEOUT		30000
 
 typedef long	t_ts;
 
@@ -109,11 +123,19 @@ t_uint32	recv_pong(int index);
 t_bool		send_ping(t_packet pack);
 
 // signal.c
+void		ft_traceroute_interrupt(int sig);
 t_bin		init_signal(void);
 
 // socket.c
 int			ft_create_sock_echo(void);
 int			init_socket(void);
+
+// stat/init.c
+void		init_table_header(void);
+void		init_table_main_separator(void);
+void		init_table_header_separator(void);
+void		init_table_footer(void);
+int			init_table(void);
 
 // stat/main.c
 void		print_stat(void);

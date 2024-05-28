@@ -99,13 +99,8 @@ ifeq ($(USE_MINI_LIBX),1)
 endif
 
 fclean:							clean
-ifeq ($(BONUS),1)
 > $(call P_FAI,Removing $(TARGET))
 > rm -rf $(TARGET)
-else
-> $(call P_FAI,Removing $(TARGET_BONUS))
-> rm -rf $(TARGET_BONUS)
-endif
 
 fclean_all:				fclean
 ifeq ($(USE_LIBFT),1)

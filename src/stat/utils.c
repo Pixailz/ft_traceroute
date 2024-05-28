@@ -6,14 +6,16 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:50:01 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/27 10:16:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/28 23:41:04 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-extern char	*COLOR;
-extern int	CURRENT_TTL;
+extern char		*COLOR;
+extern int		CURRENT_TTL;
+extern char		TABLE[4][0x200];
+extern t_bool	IS_RESOLVE_IP_PRESENT;
 
 void	print_padded_ip(t_int4 ip, char *COLOR)
 {
@@ -28,34 +30,28 @@ void	print_stat_header(void)
 {
 	ft_printf(
 		TRT_TABLE_COLOR
-		"╭───┬─────────────────┬─────────────╮\n"
+		"%s\n"
 		"│" RST UND "HOP" RUND TRT_TABLE_COLOR
 		"│" RST "       " UND "IP" RUND "        " TRT_TABLE_COLOR
-		"│" RST "    " UND "PROBS" RUND "    " TRT_TABLE_COLOR "│\n"
-		"╞═══╪═════════════════╪═════════════╡\n" RST
+		"│" RST "    " UND "PROBS" RUND "    " TRT_TABLE_COLOR
+		"│" RST "                 " UND "RESOLVED IP" RUND "                " TRT_TABLE_COLOR "│\n"
+		"%s\n" RST, TABLE[HEADER], TABLE[HEADER_SEP]
 	);
 }
 
 void	print_stat_footer(void)
 {
-	ft_printf(
-		TRT_TABLE_COLOR
-		"╰───┴─────────────────┴─────────────╯\n"
-		RST
-	);
+	ft_printf(TRT_TABLE_COLOR "%s\n" RST, TABLE[FOOTER]);
 }
 
 void	print_stat_separator(void)
 {
-	ft_printf(
-		TRT_TABLE_COLOR
-		"┝━━━┿━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━┥\n"
-		RST
-	);
+	ft_printf(TRT_TABLE_COLOR "%s\n" RST, TABLE[MAIN_SEP]);
 }
 
 void	print_stat_line(int	i, t_int4 ip, t_ts ts, t_bool same_ip)
 {
+	char	*resolved;
 	if (i)
 		ft_printf(TRT_TABLE_COLOR "│" RST "   " TRT_TABLE_COLOR "│" RST);
 	else
@@ -74,5 +70,19 @@ void	print_stat_line(int	i, t_int4 ip, t_ts ts, t_bool same_ip)
 		ft_printf("      %s*" RST "      ", COLOR);
 	else
 		ft_printf("%s%5d.%03d ms" RST " ", COLOR, ts / 1000, ts % 1000);
+	if (IS_RESOLVE_IP_PRESENT)
+	{
+		ft_printf(TRT_TABLE_COLOR "│" RST);
+		resolved = ft_i4toh(ip);
+		if (resolved && ip)
+		{
+			ft_printf(" %s", COLOR);
+			ft_printf("%42s", resolved);
+			ft_printf("%s ", RST);
+		}
+		else
+			ft_printf("     %s──────────────────────────────────%s     ", COLOR, RST);
+		free(resolved);
+	}
 	ft_printf(TRT_TABLE_COLOR "│" RST "\n");
 }

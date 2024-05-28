@@ -70,21 +70,6 @@ endif
 endif
 
 ## PARSE_VARIABLE
-### BONUS
-ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
-BONUS				:= 1
-else
-ifeq ($(findstring re_bonus,$(MAKECMDGOALS)),re_bonus)
-BONUS				:= 1
-else
-ifeq ($(findstring run_bonus,$(MAKECMDGOALS)),run_bonus)
-BONUS				:= 1
-else
-BONUS				:= 0
-endif
-endif
-endif
-
 ifeq ($(ANSI_NO_COLOR),1)
 CFLAGS				+= -DANSI_NO_COLOR
 endif
