@@ -35,5 +35,4 @@ sudo tcpdump -xni wlan0 ip[4:2] == 0x01a4 or icmp
 
 1. fix flag at the end pop `unknown host`
 1. fix getting weird result in `ft_i4toh`
-1. fix header of stat when `-r` is not present
 1. sort ip on prob, so different ip could be spotted more easily

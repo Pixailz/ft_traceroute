@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:50:01 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 23:41:04 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:30:37 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ void	print_padded_ip(t_int4 ip, char *COLOR)
 void	print_stat_header(void)
 {
 	ft_printf(
-		TRT_TABLE_COLOR
-		"%s\n"
+		TRT_TABLE_COLOR "%s\n"
 		"│" RST UND "HOP" RUND TRT_TABLE_COLOR
 		"│" RST "       " UND "IP" RUND "        " TRT_TABLE_COLOR
 		"│" RST "    " UND "PROBS" RUND "    " TRT_TABLE_COLOR
-		"│" RST "                 " UND "RESOLVED IP" RUND "                " TRT_TABLE_COLOR "│\n"
-		"%s\n" RST, TABLE[HEADER], TABLE[HEADER_SEP]
+		"│" RST
+		, TABLE[HEADER]
 	);
+	if (IS_RESOLVE_IP_PRESENT)
+		ft_printf(
+			"                 " UND "RESOLVED IP" RUND
+			"                " TRT_TABLE_COLOR
+		);
+	ft_printf(TRT_TABLE_COLOR "\n%s\n" RST, TABLE[HEADER_SEP]);
 }
 
 void	print_stat_footer(void)
