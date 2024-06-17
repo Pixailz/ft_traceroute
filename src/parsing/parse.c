@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 01:01:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 21:34:10 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/06/15 21:12:20 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ t_int4		TARGET_IP = 0;
 int			MAX_HOP = 0;
 int			NB_PROB = 0;
 t_uint16	IP_IDENT = 0;
-
-static t_size get_opt_len(t_opts *opts)
-{
-	t_opt_value	*ptr;
-	int			nb_opts;
-
-	ptr = opts->value;
-	nb_opts = 0;
-	while (ptr)
-	{
-		if (ptr->value)
-			nb_opts++;
-		ptr = ptr->next;
-	}
-	return (nb_opts);
-}
 
 static char *get_target(t_opts *opts)
 {
@@ -150,7 +134,7 @@ t_bin	post_parse(void)
 	t_opts	*opts;
 
 	opts = ft_get_opts(0);
-	if (get_opt_len(opts) != 1)
+	if (ft_opts_len(opts) != 1)
 	{
 		ft_perr("Only one arg is needed\n");
 		return (WRONG_ARG);

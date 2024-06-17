@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:50:01 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/29 09:30:37 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:41:03 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	print_stat_separator(void)
 void	print_stat_line(int	i, t_int4 ip, t_ts ts, t_bool same_ip)
 {
 	char	*resolved;
+
 	if (i)
 		ft_printf(TRT_TABLE_COLOR "│" RST "   " TRT_TABLE_COLOR "│" RST);
 	else
