@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 22:00:42 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:45:35 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,27 @@ t_bin		usage(void);
 // parsing/parse.c
 t_bin		post_parse(void);
 t_bin		parse_opts(int ac, char **av);
+
+// parsing/post/interface.c
+t_bool		pp_interface(void);
+
+// parsing/post/ip.c
+t_bool		pp_ip(char *target);
+
+// parsing/post/ip_identification.c
+int			pp_ip_identification(void);
+
+// parsing/post/max_hop.c
+int			pp_max_hop(void);
+
+// parsing/post/nb_prob.c
+int			pp_nb_prob(void);
+
+// parsing/post/start_hop.c
+int			pp_start_hop(void);
+
+// parsing/post/target.c
+char		*pp_target(t_opts *opts);
 
 // print_packet.c
 void		packet_print(void *pkt);

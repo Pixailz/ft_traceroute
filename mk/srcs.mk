@@ -6,6 +6,13 @@ SRC_C := error.c \
 		 parsing/cmd/help.c \
 		 parsing/cmd/usage.c \
 		 parsing/parse.c \
+		 parsing/post/interface.c \
+		 parsing/post/ip.c \
+		 parsing/post/ip_identification.c \
+		 parsing/post/max_hop.c \
+		 parsing/post/nb_prob.c \
+		 parsing/post/start_hop.c \
+		 parsing/post/target.c \
 		 print_packet.c \
 		 probs.c \
 		 recv_pong.c \

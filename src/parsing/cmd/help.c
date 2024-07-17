@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 01:38:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 14:30:31 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:49:22 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ void	help_part_1(void)
 	ft_putendl_fd("\n\
   -?, --help                       give this help list.\n\
       --usage                      give a short usage message.\n\
-  -m, --max-hop=NUM                set the max number of hops.\n\
-  -n, --nb-prob=NUM                set the number of probes per hop.\n\
+  -m, --max-hop NUM                set the max number of hops.\n\
+  -n, --nb-prob NUM                set the number of probes per hop.\n\
                                    Must be between 1-5.\n\
-  -i, --ip-identification=NUM      Set the IP identification (RFC 791)\n\
+  -I, --ip-identification NUM      Set the IP identification (RFC 791)\n\
   -r, --resolve-ip                 Try to resolve IP addresses to their domain names.\n\
   -S, --start-hop                  start from hop NUM (default 1).\n\
+  -i, --interface INTERFACE        Bind the interface INTERFACE to the socket\n\
   -V, --version                    print program version.\n\
   -v, --verbose                    verbose output.\n\
 ", 1);

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:06:56 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 12:55:36 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/07/15 10:56:44 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	free_probs(void)
 	int	counter;
 	int	max_prob;
 
+	if (!PROBS)
+		return ;
 	max_prob = MAX_HOP * NB_PROB;
 	counter = 0;
 	while(counter < max_prob)
