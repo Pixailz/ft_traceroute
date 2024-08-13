@@ -6,13 +6,13 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:53:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 14:46:03 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:11:17 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-extern int		SOCKET;
+extern int		SOCKET_RECV;
 extern t_prob	**PROBS;
 extern t_ts		LAST_SENDED;
 extern t_bool	IS_INTERRUPTED;
@@ -24,12 +24,12 @@ static t_bool	recv_echo_reply(t_packet *pong_pkt)
 	long			ret;
 
 	ret = recvfrom(
-		SOCKET,					// SOCKET
+		SOCKET_RECV,			// SOCKET
 		pong_pkt->data,			// BUFFER
 		PACK_TOT_LEN_ICMP_TIME,	// LEN
 		0,						// FLAG
 		FT_NULL,				// SOCK ADDR FROM
-		0						// SOCK ADDR FROM LEN
+		FT_NULL					// SOCK ADDR FROM LEN
 	);
 	return (ret == -1);
 }
@@ -73,7 +73,6 @@ static t_uint32	check_reply(t_packet *pkt, t_uint32 exp_port)
 		set_stat(get_index(*pack_icmp), pack_ip->src_addr);
 		return (2);
 	}
-	ft_printf("An other packet\n");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 03:26:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 23:47:11 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:59:54 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bin	run(int ac, char **av)
 		return (WRONG_ARG);
 	if (init_signal())
 		return (FAILED_INIT_SIGNAL);
-	if (init_socket())
+	if (init_sockets())
 		return (FAILED_INIT_SOCKET);
 	if (init_probs())
 		return (FAILED_INIT_PROBS);
@@ -38,7 +38,6 @@ int	main(int ac, char **av)
 	char	ret = 0;
 
 	ret = run(ac, av);
-	ft_free_opts();
 	free_probs();
 	return (ret);
 }

@@ -2,3 +2,6 @@
 obj/*
 ft_traceroute
 ft_traceroute_bonus
+
+# Logfile
+exec.log

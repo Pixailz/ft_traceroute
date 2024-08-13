@@ -6,40 +6,45 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:47:31 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/23 15:32:05 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:24:35 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-int	SOCKET = 0;
+extern	char*	INTERFACE;
+int				SOCKET_RECV = 0;
+int				SOCKET_SEND = 0;
 
-int	ft_create_sock_echo(void)
+t_bool	bind_interface_socket(int *sock)
 {
-	struct timeval	tv;
+	if (!INTERFACE)
+		return (FALSE);
+	return (ft_setsockopt_bind_interface(*sock, INTERFACE));
+}
 
+int	ft_create_sock_echo(int *sock, t_bool bind)
+{
 	if (getuid())
 		return (1);
-	SOCKET = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP);
-	if (SOCKET == -1)
+	*sock = ft_socket(PF_INET, SOCK_RAW, IPPROTO_ICMP);
+	if (*sock == -1)
 		return (2);
-
-	tv.tv_usec = TRT_TIMEOUT % A_SEC;
-	tv.tv_sec = TRT_TIMEOUT / A_SEC;
-
-	if (setsockopt(SOCKET, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == -1)
+	if (ft_setsockopt_timeout(*sock, TRT_TIMEOUT))
 		return (3);
-	if (setsockopt(SOCKET, IPPROTO_IP, IP_HDRINCL, (int [1]){1}, \
-															sizeof(int)) == -1)
+	if (ft_setsockopt_ipheader(*sock))
 		return (4);
+	if (bind)
+		if (bind_interface_socket(sock))
+			return (5);
 	return (0);
 }
 
-int	init_socket(void)
+int	init_socket(int *sock, t_bool bind)
 {
 	int	retv;
 
-	retv = ft_create_sock_echo();
+	retv = ft_create_sock_echo(sock, bind);
 	if (retv)
 	{
 		if (retv == 1)
@@ -50,7 +55,22 @@ int	init_socket(void)
 			ft_perr("get_sock_echo: failed to set timeout on recv\n");
 		if (retv == 4)
 			ft_perr("get_sock_echo: failed to set IP_HDRINCL\n");
+		if (bind && retv == 5)
+			ft_perr("get_sock_echo: failed to bind interface\n");
 		return (BIT_01);
 	}
 	return (BIT_00);
+}
+
+int	init_sockets(void)
+{
+	int retv;
+
+	retv = 0;
+
+	if ((retv = init_socket(&SOCKET_RECV, FALSE)))
+		return (retv);
+	if ((retv = init_socket(&SOCKET_SEND, TRUE)))
+		return (retv);
+	return (retv);
 }

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:14:17 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/07/17 12:45:35 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:43:59 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,10 @@ void		ft_traceroute_interrupt(int sig);
 t_bin		init_signal(void);
 
 // socket.c
-int			ft_create_sock_echo(void);
-int			init_socket(void);
+t_bool		bind_interface_socket(int *sock);
+int			ft_create_sock_echo(int *sock, t_bool bind);
+int			init_socket(int *sock, t_bool bind);
+int			init_sockets(void);
 
 // stat/init.c
 void		init_table_header(void);
