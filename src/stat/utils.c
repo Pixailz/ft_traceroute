@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:50:01 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/06/03 12:41:03 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:30:25 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	print_stat_header(void)
 	);
 	if (IS_RESOLVE_IP_PRESENT)
 		ft_printf(
-			"                 " UND "RESOLVED IP" RUND
-			"                " TRT_TABLE_COLOR
+			"                    " UND "RESOLVED IP" RUND
+			"                    " TRT_TABLE_COLOR "│" RST
 		);
 	ft_printf(TRT_TABLE_COLOR "\n%s\n" RST, TABLE[HEADER_SEP]);
 }
@@ -79,16 +79,30 @@ void	print_stat_line(int	i, t_int4 ip, t_ts ts, t_bool same_ip)
 	if (IS_RESOLVE_IP_PRESENT)
 	{
 		ft_printf(TRT_TABLE_COLOR "│" RST);
-		resolved = ft_i4toh(ip);
-		if (resolved && ip)
-		{
-			ft_printf(" %s", COLOR);
-			ft_printf("%42s", resolved);
-			ft_printf("%s ", RST);
-		}
+		if (i && same_ip)
+			ft_printf("%51s", "");
 		else
-			ft_printf("     %s──────────────────────────────────%s     ", COLOR, RST);
-		free(resolved);
+		{
+			resolved = ft_i4toh(ip);
+			if (resolved)
+			{
+				ft_printf(" %s", COLOR);
+				ft_printf("%49s", resolved);
+				ft_printf("%s ", RST);
+			}
+			else if (ip)
+			{
+				char * ip_str;
+				ft_printf(" %s", COLOR);
+				ip_str = ft_getip_str(ft_htonl(ip));
+				ft_printf("%49s", ip_str);
+				free(ip_str);
+				ft_printf("%s ", RST);
+			}
+			else
+				ft_printf("     %s─────────────────────────────────────────%s     ", COLOR, RST);
+			free(resolved);
+		}
 	}
 	ft_printf(TRT_TABLE_COLOR "│" RST "\n");
 }

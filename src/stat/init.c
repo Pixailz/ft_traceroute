@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:16:02 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 22:00:43 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:28:04 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ char	TABLE[4][0x200];
 t_bool	IS_RESOLVE_IP_PRESENT = FALSE;
 
 # define __FIRST_INDEX			108
-# define __SECOND_INDEX			135
+# define __SECOND_INDEX			156
 
 void	init_table_header(void)
 {
 	int	index;
 
-	index = 108;
+	index = __FIRST_INDEX;
 	ft_memcpy(TABLE[HEADER], "╭───┬─────────────────┬─────────────", index);
 	if (IS_RESOLVE_IP_PRESENT)
 	{
-		ft_memcpy(TABLE[HEADER] + index, "┬────────────────────────────────────────────", 135);
-		index += 135;
+		ft_memcpy(TABLE[HEADER] + index, "┬────────────────────────────────────────────────────", __SECOND_INDEX);
+		index += __SECOND_INDEX;
 	}
 	ft_memcpy(TABLE[HEADER] + index, "╮", 4);
 	index += 4;
@@ -38,12 +38,12 @@ void	init_table_main_separator(void)
 {
 	int	index;
 
-	index = 108;
+	index = __FIRST_INDEX;
 	ft_memcpy(TABLE[MAIN_SEP], "╞═══╪═════════════════╪═════════════", index);
 	if (IS_RESOLVE_IP_PRESENT)
 	{
-		ft_memcpy(TABLE[MAIN_SEP] + index, "╪════════════════════════════════════════════", 135);
-		index += 135;
+		ft_memcpy(TABLE[MAIN_SEP] + index, "╪════════════════════════════════════════════════════", __SECOND_INDEX);
+		index += __SECOND_INDEX;
 	}
 	ft_memcpy(TABLE[MAIN_SEP] + index, "╡", 4);
 	index += 4;
@@ -54,12 +54,12 @@ void	init_table_header_separator(void)
 {
 	int	index;
 
-	index = 108;
+	index = __FIRST_INDEX;
 	ft_memcpy(TABLE[HEADER_SEP], "┝━━━┿━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━", index);
 	if (IS_RESOLVE_IP_PRESENT)
 	{
-		ft_memcpy(TABLE[HEADER_SEP] + index, "┿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", 135);
-		index += 135;
+		ft_memcpy(TABLE[HEADER_SEP] + index, "┿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", __SECOND_INDEX);
+		index += __SECOND_INDEX;
 	}
 	ft_memcpy(TABLE[HEADER_SEP] + index, "┥", 4);
 	index += 4;
@@ -70,12 +70,12 @@ void	init_table_footer(void)
 {
 	int	index;
 
-	index = 108;
+	index = __FIRST_INDEX;
 	ft_memcpy(TABLE[FOOTER], "╰───┴─────────────────┴─────────────", index);
 	if (IS_RESOLVE_IP_PRESENT)
 	{
-		ft_memcpy(TABLE[FOOTER] + index, "┴────────────────────────────────────────────", 135);
-		index += 135;
+		ft_memcpy(TABLE[FOOTER] + index, "┴────────────────────────────────────────────────────", __SECOND_INDEX);
+		index += __SECOND_INDEX;
 	}
 
 	ft_memcpy(TABLE[FOOTER] + index, "╯", 4);
