@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 02:53:19 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/08/13 22:11:17 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:16:57 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ extern int		SOCKET_RECV;
 extern t_prob	**PROBS;
 extern t_ts		LAST_SENDED;
 extern t_bool	IS_INTERRUPTED;
+extern t_uint16	BASE_PORT;
 
 t_ts			LAST_RECV;
 
@@ -41,7 +42,7 @@ t_uint16	get_ori_port(t_icmphdr_time_exceed pkt)
 
 t_int32		get_index(t_icmphdr_time_exceed pkt)
 {
-	return (get_ori_port(pkt) - TRT_BASE_PORT);
+	return (get_ori_port(pkt) - BASE_PORT);
 }
 
 
@@ -90,7 +91,7 @@ t_uint32	recv_pong(int index)
 			return 0;
 		}
 		LAST_RECV = ft_get_ts();
-		retv = check_reply(&pong_pkt, TRT_BASE_PORT + index);
+		retv = check_reply(&pong_pkt, BASE_PORT + index);
 		if (retv)
 			return retv;
 	}

@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:27:32 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/05/28 14:59:48 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:21:23 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ extern int		IS_INTERRUPTED;
 extern int		MAX_HOP;
 extern int		NB_PROB;
 extern int		IP_IDENT;
+extern t_int4	SRC_IP;
+extern t_uint8	TOS;
+extern t_uint16	BASE_PORT;
+extern t_uint8	CURRENT_TTL;
 
 t_uint32		CURRENT_HOP = 0;
-t_uint32		CURRENT_TTL = 0;
 
 void	inc_ttl(t_packet *pack)
 {
@@ -38,7 +41,7 @@ void	set_port(t_packet *pack, int index)
 	t_uint32	port;
 
 	pack_udp = ft_pkt_get_udp(pack);
-	port = ft_htons(TRT_BASE_PORT + index);
+	port = ft_htons(BASE_PORT + index);
 	pack_udp->src_port = port;
 	pack_udp->dst_port = port;
 }
@@ -52,7 +55,9 @@ static t_packet	get_udp_packet(void)
 	pack = ft_pkt_get();
 	pack_ip = ft_pkt_get_ip(&pack);
 	ft_pkt_fill_ip_default(pack_ip);
+	pack_ip->tos = TOS;
 	pack_ip->total_len = PACK_TOT_LEN_UDP;
+	pack_ip->src_addr = ft_htonl(SRC_IP);
 	pack_ip->dst_addr = TARGET_IP;
 	pack_ip->ttl = CURRENT_TTL;
 	pack_ip->identification = ft_htons(IP_IDENT);

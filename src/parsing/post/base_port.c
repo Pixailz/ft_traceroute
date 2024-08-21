@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ip.c                                               :+:      :+:    :+:   */
+/*   base_port.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:53:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/08/21 10:01:42 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:18:27 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-t_int4	TARGET_IP = 0;
+t_uint16	BASE_PORT = TRT_BASE_PORT;
 
-t_bool	pp_ip(char *target)
+void	pp_base_port(void)
 {
-	if (!ft_strncmp(target, "0.0.0.0", 7))
+	t_opt	*opt;
+	int		value;
+	int		retv;
+
+	opt = ft_optget("base-port");
+	if (!opt || !opt->value)
+		return ;
+	value = ft_patoi(opt->value->value, &retv);
+	if (retv || value > 0xffff)
 	{
-		TARGET_IP = 0;
-		return (FALSE);
+		ft_perr("base-port wrong value. Defaulting to %d\n", TRT_BASE_PORT);
+		return ;
 	}
-	if (!ft_strncmp(target, "localhost", 9))
+	else if (value <= 0)
 	{
-		TARGET_IP = 0x7f000001;
-		return (FALSE);
+		ft_perr("base-port value too low. Defaulting to 1\n");
+		BASE_PORT = 1;
+		return ;
 	}
-	TARGET_IP = ft_ipstr(target);
-	if (TARGET_IP)
-		return (FALSE);
-	TARGET_IP = ft_htoi4(target, FT_NULL);
-	if (TARGET_IP)
-		return (FALSE);
-	ft_perr("%s: unknown host\n", PROG_NAME);
-	return (TRUE);
+	BASE_PORT = value;
 }

@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ip.c                                               :+:      :+:    :+:   */
+/*   src_ip.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 13:53:25 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/08/21 10:01:42 by brda-sil         ###   ########.fr       */
+/*   Created: 2024/07/17 13:52:37 by brda-sil          #+#    #+#             */
+/*   Updated: 2024/08/21 10:05:49 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-t_int4	TARGET_IP = 0;
+t_int4	SRC_IP = 0;
 
-t_bool	pp_ip(char *target)
+void	pp_src_ip(void)
 {
-	if (!ft_strncmp(target, "0.0.0.0", 7))
-	{
-		TARGET_IP = 0;
-		return (FALSE);
-	}
-	if (!ft_strncmp(target, "localhost", 9))
-	{
-		TARGET_IP = 0x7f000001;
-		return (FALSE);
-	}
-	TARGET_IP = ft_ipstr(target);
-	if (TARGET_IP)
-		return (FALSE);
-	TARGET_IP = ft_htoi4(target, FT_NULL);
-	if (TARGET_IP)
-		return (FALSE);
-	ft_perr("%s: unknown host\n", PROG_NAME);
-	return (TRUE);
+	t_opt	*src_ip;
+
+	src_ip = ft_optget("source-ip");
+	if (!src_ip || !src_ip->value)
+		return ;
+	SRC_IP = ft_ipstr(src_ip->value->value);
+	if (!SRC_IP)
+		ft_perr("source-ip wrong value\n");
 }

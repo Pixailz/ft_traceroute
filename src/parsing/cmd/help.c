@@ -6,7 +6,7 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 01:38:28 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/07/17 13:49:22 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:39:45 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,29 @@ void	help_header(void)
 void	help_part_1(void)
 {
 	ft_putendl_fd("\n\
-  -?, --help                       give this help list.\n\
-      --usage                      give a short usage message.\n\
-  -m, --max-hop NUM                set the max number of hops.\n\
-  -n, --nb-prob NUM                set the number of probes per hop.\n\
+Base options: \n\
+\n\
+  -?, --help                       Give this help list.\n\
+      --usage                      Give a short usage message.\n\
+  -V, --version                    Print program version.\n\
+  -v, --verbose                    Verbose output.\n\
+  -m, --max-hop NUM                Set the max number of hops.\n\
+  -n, --nb-prob NUM                Set the number of probes per hop.\n\
                                    Must be between 1-5.\n\
-  -I, --ip-identification NUM      Set the IP identification (RFC 791)\n\
   -r, --resolve-ip                 Try to resolve IP addresses to their domain names.\n\
-  -S, --start-hop                  start from hop NUM (default 1).\n\
+  -S, --start-hop                  Start from hop NUM (default 1).\n\
   -i, --interface INTERFACE        Bind the interface INTERFACE to the socket\n\
-  -V, --version                    print program version.\n\
-  -v, --verbose                    verbose output.\n\
+\n\
+IP options: \n\
+\n\
+  -I, --ip-identification NUM      Set the IP identification.\n\
+  -s, --source-ip IP               Set the source IP address.\n\
+  -t, --tos TOS                    Set the TOS.\n\
+\n\
+UDP options: \n\
+\n\
+  -b, --base-port                  Start from port NUM (default 33434).\n\
+\n\
 ", 1);
 }
 

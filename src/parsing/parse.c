@@ -6,19 +6,16 @@
 /*   By: brda-sil <brda-sil@students.42angouleme    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 01:01:15 by brda-sil          #+#    #+#             */
-/*   Updated: 2024/07/17 13:59:15 by brda-sil         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:42:30 by brda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_traceroute.h"
 
-extern int		CURRENT_TTL;
 extern t_int4	TARGET_IP;
+extern t_uint8	CURRENT_TTL;
 
 char			*TARGET_STR = FT_NULL;
-int				MAX_HOP = 0;
-int				NB_PROB = 0;
-t_uint16		IP_IDENT = 0;
 
 t_bin	post_parse(void)
 {
@@ -33,13 +30,15 @@ t_bin	post_parse(void)
 	TARGET_STR = pp_target(opts);
 	if (pp_ip(TARGET_STR))
 		return (WRONG_ARG);
-	if (pp_interface())
-		return (WRONG_ARG);
-	MAX_HOP = pp_max_hop();
-	NB_PROB = pp_nb_prob();
-	IP_IDENT = pp_ip_identification();
-	CURRENT_TTL = pp_start_hop();
+	pp_interface();
+	pp_max_hop();
+	pp_start_hop();
+	pp_nb_prob();
+	pp_base_port();
+	pp_ip_identification();
 	CURRENT_TTL--;
+	pp_src_ip();
+	pp_tos();
 	return (BIT_00);
 }
 
@@ -54,6 +53,11 @@ t_bin	parse_opts(int ac, char **av)
 	ft_optadd("resolve-ip", 'r', OPT_FLAG);
 	ft_optadd("start-hop", 'S', OPT_SINGLE);
 	ft_optadd("interface", 'i', OPT_SINGLE);
+	ft_optadd("source-ip", 's', OPT_SINGLE);
+	ft_optadd("tos", 't', OPT_SINGLE);
+
+	ft_optadd("base-port", 'b', OPT_SINGLE);
+
 	ft_optparse(ac, av);
 	return (ft_opt_post_parse(post_parse));
 }
